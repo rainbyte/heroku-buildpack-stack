@@ -26,6 +26,7 @@ if [ -d "$ENV_DIR" ]; then
 fi
 
 WORK_DIR=/app
+mkdir -p "$WORK_DIR/.local/bin"
 mkdir -p "$WORK_DIR/vendor"
 mkdir -p "$WORK_DIR/vendor/bin"
 mkdir -p "$WORK_DIR/vendor/ghc-libs"
@@ -80,7 +81,7 @@ chmod a+x "$WORK_DIR/vendor/bin/stack"
 speak "Running stack"
 cd "$BUILD_DIR"
 stack setup
-stack build --copy-bins
+stack build --copy-bins --local-bin-path "$WORK_DIR/.local/bin"
 
 # Set context environment variables.
 set-env PATH "$WORK_DIR/.local/bin:$PATH"
